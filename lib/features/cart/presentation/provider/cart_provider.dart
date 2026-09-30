@@ -6,9 +6,9 @@ import 'package:tradly/features/cart/domain/entity/cart_item.dart';
 
 class CartNotifier extends Notifier<List<CartItem>> {
   final CartRepository _cartRepository = instance();
+
   @override
   List<CartItem> build() {
-    // return [];
     return _cartRepository.getCart();
   }
 
@@ -29,6 +29,7 @@ class CartNotifier extends Notifier<List<CartItem>> {
       newList.add(CartItem(product: product, quantity: 1));
     }
     state = newList;
+
     await _cartRepository.saveCart(state);
   }
 
@@ -38,6 +39,7 @@ class CartNotifier extends Notifier<List<CartItem>> {
     newList.removeWhere((cartItem) => cartItem.product.id == productId);
 
     state = newList;
+
     await _cartRepository.saveCart(state);
   }
 
@@ -55,6 +57,7 @@ class CartNotifier extends Notifier<List<CartItem>> {
     newList[index] = item.copyWith(quantity: item.quantity + 1);
 
     state = newList;
+
     await _cartRepository.saveCart(state);
   }
 
@@ -75,6 +78,7 @@ class CartNotifier extends Notifier<List<CartItem>> {
       newList.removeAt(index);
     }
     state = newList;
+
     await _cartRepository.saveCart(state);
   }
 
@@ -85,7 +89,7 @@ class CartNotifier extends Notifier<List<CartItem>> {
   }
 
   // Set specific quantity
-  void setQuantity(int productId, int quantity) {
+  void setQuantity(int productId, int quantity) async {
     if (quantity <= 0) {
       removeFromCart(productId);
       return;
@@ -104,6 +108,8 @@ class CartNotifier extends Notifier<List<CartItem>> {
     newList[index] = item.copyWith(quantity: quantity);
 
     state = newList;
+
+    await _cartRepository.saveCart(state);
   }
 
   // Check if product exists in cart
@@ -135,9 +141,7 @@ class CartNotifier extends Notifier<List<CartItem>> {
   }
 
   // Delivery fee
-  double get deliveryFee {
-    return 3;
-  }
+  double get deliveryFee => 0;
 
   // Total price
   double get totalPrice {
