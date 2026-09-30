@@ -1,9 +1,9 @@
-import 'package:tradly/features/cart/data/model/cart_item_model.dart';
+import 'package:tradly/features/cart/domain/entity/cart_item.dart';
 
 abstract class CartRepository {
-  Future<void> saveCart(CartItemModel item);
+  Future<void> saveCart(List<CartItem> cart);
 
-  List<CartItemModel> getCart();
+  List<CartItem> getCart();
 
   Future<void> clearCart();
 }

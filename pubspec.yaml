@@ -55,6 +55,7 @@ dependencies:
   geocoding: ^5.0.0
   hive_ce: ^2.20.1
   hive_ce_flutter: ^2.4.0
+  hive_ce_generator: ^1.11.3
 
 dev_dependencies:
   flutter_test:
