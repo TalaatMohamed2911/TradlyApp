@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart';
+import 'package:tradly/presentation/main/pages/category/view/category_view.dart';
+import 'package:tradly/presentation/resourcses/colors_manager.dart';
+
+class CategoriesWidget extends StatelessWidget {
+  final String category;
+  final String image;
+  const CategoriesWidget({
+    super.key,
+    required this.category,
+    required this.image,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 93,
+      height: 93,
+      color: ColorManager.primary.withAlpha(180),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => CategoryView(category: category),
+            ),
+          );
+        },
+        child: Stack(
+          children: [
+            Center(
+              child: Image.network(
+                image,
+                alignment: AlignmentGeometry.center,
+                fit: BoxFit.contain,
+              ),
+            ),
+            Center(
+              child: Text(
+                category,
+                style: Theme.of(context).textTheme.labelLarge,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
