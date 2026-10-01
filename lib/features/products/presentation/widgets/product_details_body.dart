@@ -33,7 +33,7 @@ class ProductDetailsBody extends ConsumerWidget {
           ),
           IconButton(
             onPressed: () {
-              ref.read(wishListProvider.notifier).toogleFavourite(product);
+              ref.read(wishListProvider.notifier).toggleFavourite(product);
             },
             icon: Icon(
               isFavourite ? Icons.favorite : Icons.favorite_border,

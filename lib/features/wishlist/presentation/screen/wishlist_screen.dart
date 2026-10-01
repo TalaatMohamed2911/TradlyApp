@@ -16,30 +16,32 @@ class WishListView extends ConsumerWidget {
         title: Text("Wishlist", style: Theme.of(context).textTheme.titleLarge),
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: GridView.builder(
-          itemCount: wishList.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-          ),
-          itemBuilder: (context, index) {
-            final product = wishList[index];
-            return CardView(
-              image: product.thumbnail,
-              name: product.title,
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ProductDetailsScreen(productId: product.id),
+      body: wishList.isEmpty
+          ? const Center(child: Text('Your wishlist is empty'))
+          : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: GridView.builder(
+                itemCount: wishList.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                 ),
+                itemBuilder: (context, index) {
+                  final product = wishList[index];
+                  return CardView(
+                    image: product.thumbnail,
+                    name: product.title,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ProductDetailsScreen(productId: product.id),
+                      ),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-      ),
+            ),
     );
   }
 }
