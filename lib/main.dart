@@ -3,6 +3,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tradly/core/storage/hive_config.dart';
 import 'package:tradly/features/cart/data/data_source/cart_local_data_source.dart';
+import 'package:tradly/features/wishlist/data/data_source/wishlist_local_data_source.dart';
 import 'package:tradly/presentation/resourcses/language_manager.dart';
 import 'core/utils/app.dart';
 import 'core/di/di.dart';
@@ -14,6 +15,7 @@ Future<void> main() async {
   await initAppModule();
   await HiveConfig.initHive();
   await instance<CartLocalDataSource>().init();
+  await instance<WishlistLocalDataSource>().init();
   runApp(
     ProviderScope(
       child: EasyLocalization(

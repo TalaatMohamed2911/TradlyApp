@@ -24,6 +24,9 @@ import 'package:tradly/features/authentication/presentation/provider/login_viewm
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tradly/features/authentication/presentation/provider/register_viewmodel.dart';
+import 'package:tradly/features/wishlist/data/data_source/wishlist_local_data_source.dart';
+import 'package:tradly/features/wishlist/data/repository/wishlist_repository_impl.dart';
+import 'package:tradly/features/wishlist/domain/repository/wishlist_repository.dart';
 import '../../features/authentication/presentation/provider/resetpassword_view_model.dart';
 
 final GetIt instance = GetIt.instance;
@@ -46,18 +49,13 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<AuthenticationDataSource>(
     () => AuthenticationDataSourceImpl(instance<AppServiceClient>()),
   );
-  instance.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl());
-
-  instance.registerLazySingleton<CartLocalDataSource>(
-    () => CartLocalDataSource(),
-  );
-  instance.registerLazySingleton<CartRepository>(
-    () => CartRepositoryImpl(instance()),
-  );
 
   instance.registerLazySingleton<AuthenticationRepository>(
     () => AuthenticationRepositoryImpl(instance()),
   );
+
+  instance.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl());
+
   instance.registerLazySingleton<ProductsDataSource>(
     () => ProductsDataSourceImpl(instance()),
   );
@@ -79,6 +77,18 @@ Future<void> initAppModule() async {
 
   instance.registerLazySingleton(
     () => GetCategoryProductsUsecase(instance<ProductsRepository>()),
+  );
+  instance.registerLazySingleton<CartLocalDataSource>(
+    () => CartLocalDataSource(),
+  );
+  instance.registerLazySingleton<CartRepository>(
+    () => CartRepositoryImpl(instance()),
+  );
+  instance.registerLazySingleton<WishlistLocalDataSource>(
+    () => WishlistLocalDataSource(),
+  );
+  instance.registerLazySingleton<WishlistRepository>(
+    () => WishlistRepositoryImpl(instance()),
   );
 }
 

@@ -5,11 +5,13 @@
 import 'package:hive_ce/hive_ce.dart';
 import 'package:tradly/features/cart/data/model/cart_item_model.dart';
 import 'package:tradly/features/cart/data/model/cart_product_model.dart';
+import 'package:tradly/features/wishlist/data/model/wishlist_product_model.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
     registerAdapter(CartItemModelAdapter());
     registerAdapter(CartProductModelAdapter());
+    registerAdapter(WishlistProductModelAdapter());
   }
 }
 
@@ -17,5 +19,6 @@ extension IsolatedHiveRegistrar on IsolatedHiveInterface {
   void registerAdapters() {
     registerAdapter(CartItemModelAdapter());
     registerAdapter(CartProductModelAdapter());
+    registerAdapter(WishlistProductModelAdapter());
   }
 }
