@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tradly/core/utils/responsive.dart';
 import 'package:tradly/presentation/resourcses/assets_manager.dart';
 import 'package:tradly/presentation/resourcses/values_manager.dart';
 
@@ -15,41 +16,56 @@ class CardView extends StatelessWidget {
   final Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: SizedBox(
-        width: 160,
-        height: 200,
+    return SizedBox(
+      width: Responsive.isCompact(context) ? 144 : 160,
+      height: 210,
+      child: GestureDetector(
+        onTap: onTap,
         child: Card(
           elevation: AppSize.s1,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+              Expanded(
+                flex: 6,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Image.network(image, fit: BoxFit.contain),
                 ),
-                height: 127,
-                width: double.infinity,
-                child: Image.network(image, fit: BoxFit.contain),
               ),
               Padding(
-                padding: const EdgeInsets.only(
-                  left: AppPadding.p12,
-                  top: AppPadding.p12,
+                padding: const EdgeInsets.fromLTRB(
+                  AppPadding.p12,
+                  AppPadding.p4,
+                  AppPadding.p12,
+                  0,
                 ),
-                child: Text(name, style: Theme.of(context).textTheme.bodySmall),
+                child: Text(
+                  name,
+                  style: Theme.of(context).textTheme.bodySmall,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
               ),
               Expanded(
+                flex: 2,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: AppPadding.p12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppPadding.p8,
+                  ),
                   child: Row(
                     children: [
-                      SvgPicture.asset(ImageAssets.tAvatar),
-                      Text(
-                        " Tradly \t \t \t \t \t",
-                        style: Theme.of(context).textTheme.bodyLarge,
+                      SvgPicture.asset(
+                        ImageAssets.tAvatar,
+                        width: 20,
+                        height: 20,
+                      ),
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: Text(
+                          "Tradly",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       Text(
                         "26\$",

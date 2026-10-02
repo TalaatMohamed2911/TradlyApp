@@ -80,67 +80,68 @@ class _AddAddressScreenState extends ConsumerState<AddAddressScreen> {
 
       body: Padding(
         padding: const EdgeInsets.all(16),
-
-        child: Column(
-          children: [
-            OutlinedButton.icon(
-              onPressed: getCurrentLocation,
-              icon: const Icon(Icons.my_location),
-              label: const Text('Use Current Location'),
-            ),
-
-            TextField(
-              controller: nameController,
-              decoration: const InputDecoration(labelText: 'Name'),
-            ),
-
-            const SizedBox(height: 12),
-
-            TextField(
-              controller: phoneController,
-              keyboardType: TextInputType.phone,
-              decoration: const InputDecoration(labelText: 'Phone'),
-            ),
-
-            const SizedBox(height: 12),
-
-            TextField(
-              controller: streetAddressController,
-              decoration: const InputDecoration(labelText: 'Street Address'),
-            ),
-
-            const SizedBox(height: 12),
-
-            TextField(
-              controller: cityController,
-              decoration: const InputDecoration(labelText: 'City'),
-            ),
-
-            const SizedBox(height: 12),
-
-            TextField(
-              controller: stateController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'State'),
-            ),
-            const SizedBox(height: 12),
-
-            TextField(
-              controller: zipCodeController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'Zipcode'),
-            ),
-
-            const SizedBox(height: 24),
-
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: saveAddress,
-                child: const Text('Save Address'),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              OutlinedButton.icon(
+                onPressed: getCurrentLocation,
+                icon: const Icon(Icons.my_location),
+                label: const Text('Use Current Location'),
               ),
-            ),
-          ],
+
+              TextField(
+                controller: nameController,
+                decoration: const InputDecoration(labelText: 'Name'),
+              ),
+
+              const SizedBox(height: 12),
+
+              TextField(
+                controller: phoneController,
+                keyboardType: TextInputType.phone,
+                decoration: const InputDecoration(labelText: 'Phone'),
+              ),
+
+              const SizedBox(height: 12),
+
+              TextField(
+                controller: streetAddressController,
+                decoration: const InputDecoration(labelText: 'Street Address'),
+              ),
+
+              const SizedBox(height: 12),
+
+              TextField(
+                controller: cityController,
+                decoration: const InputDecoration(labelText: 'City'),
+              ),
+
+              const SizedBox(height: 12),
+
+              TextField(
+                controller: stateController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(labelText: 'State'),
+              ),
+              const SizedBox(height: 12),
+
+              TextField(
+                controller: zipCodeController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(labelText: 'Zipcode'),
+              ),
+
+              const SizedBox(height: 24),
+
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: saveAddress,
+                  child: const Text('Save Address'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

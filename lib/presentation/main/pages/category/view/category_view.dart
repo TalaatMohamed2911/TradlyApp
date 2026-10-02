@@ -15,13 +15,14 @@ class CategoryView extends ConsumerWidget {
       appBar: AppBar(title: Text(category), elevation: 0),
       body: state.when(
         data: (products) => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: GridView.builder(
             itemCount: products.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+              crossAxisSpacing: 6,
+              mainAxisSpacing: 6,
+              childAspectRatio: 0.72,
             ),
             itemBuilder: (context, index) => CardView(
               image: products[index].thumbnail,

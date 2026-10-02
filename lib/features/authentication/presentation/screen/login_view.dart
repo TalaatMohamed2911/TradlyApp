@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:tradly/core/utils/responsive.dart';
 import 'package:tradly/core/utils/app_prefs.dart';
 import 'package:tradly/core/di/di.dart';
 import 'package:tradly/presentation/common/widgets/custom_text_form_field.dart';
@@ -58,7 +59,11 @@ class _LoginViewState extends State<LoginView> {
 
   Widget _getContentWidget() {
     return Container(
-      padding: const EdgeInsets.only(top: AppPadding.p140),
+      padding: EdgeInsets.only(
+        top: (Responsive.height(context) * 0.12)
+            .clamp(24.0, AppPadding.p140)
+            .toDouble(),
+      ),
       child: SingleChildScrollView(
         child: Form(
           key: _formKey,

@@ -52,21 +52,28 @@ class ProductDetailsBody extends ConsumerWidget {
         color: ColorManager.white,
         child: Column(
           children: [
-            SingleChildScrollView(child: _getItems(product, context)),
-            Container(
-              width: double.infinity,
-              height: 50,
-              margin: EdgeInsets.symmetric(
-                horizontal: AppMargin.m28,
-                vertical: AppMargin.m8,
-              ),
-              child: ElevatedButton(
-                onPressed: () {
-                  ref.read(cartProvider.notifier).addToCart(product);
-                },
-                child: Text(
-                  "Add to Cart",
-                  style: TextStyle(color: Colors.white),
+            Expanded(
+              child: SingleChildScrollView(child: _getItems(product, context)),
+            ),
+            SafeArea(
+              top: false,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppMargin.m28,
+                  vertical: AppMargin.m8,
+                ),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      ref.read(cartProvider.notifier).addToCart(product);
+                    },
+                    child: Text(
+                      "Add to Cart",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -86,7 +93,9 @@ class ProductDetailsBody extends ConsumerWidget {
               productDetails.thumbnail,
               fit: BoxFit.contain,
               width: double.infinity,
-              height: 250,
+              height: (MediaQuery.sizeOf(context).height * 0.3)
+                  .clamp(180.0, 280.0)
+                  .toDouble(),
             ),
           ),
           ListTile(
