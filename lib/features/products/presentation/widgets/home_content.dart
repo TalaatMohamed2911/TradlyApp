@@ -1,15 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:tradly/core/utils/responsive.dart';
 import 'package:tradly/features/products/domain/entity/product.dart';
 import 'package:tradly/presentation/common/widgets/card_view.dart';
 import 'package:tradly/presentation/common/widgets/categories_widget.dart';
-import 'package:tradly/presentation/common/widgets/store_to_follow.dart';
-import 'package:tradly/presentation/common/widgets/store_to_follow_card.dart';
 import 'package:tradly/presentation/common/widgets/title_with_seeall_btn.dart';
 import 'package:tradly/presentation/main/pages/browse/view/search.dart';
 import 'package:tradly/features/products/presentation/screen/product_details_screen.dart';
-import 'package:tradly/presentation/main/pages/product/view/product_view.dart';
 import 'package:tradly/presentation/resourcses/colors_manager.dart';
 import 'package:tradly/presentation/resourcses/strings_manager.dart';
 import 'package:tradly/presentation/resourcses/values_manager.dart';
@@ -32,7 +30,6 @@ class HomeContent extends StatelessWidget {
               onTap: () => Navigator.of(
                 context,
               ).push(MaterialPageRoute(builder: (context) => SearchScreen())),
-
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.search_rounded),
                 hintText: "Search Product",
@@ -42,29 +39,30 @@ class HomeContent extends StatelessWidget {
               ),
             ),
           ),
-          _getBannerWidget(homeData),
-          _getCategoryWidget(homeData),
+          _getBannerWidget(homeData, context),
+          _getCategoryWidget(homeData, context),
           TitleWithSeeAllBtn(
             title: AppStrings.newProduct.tr(),
             btnTitle: AppStrings.seeAll.tr(),
             btnPress: () {},
           ),
-          _getNewProductWidget(homeData),
+          _getNewProductWidget(homeData, context),
           TitleWithSeeAllBtn(
             title: AppStrings.popularProduct.tr(),
             btnTitle: AppStrings.seeAll.tr(),
             btnPress: () {},
           ),
-          _getPopularProductWidget(homeData),
-          SizedBox(height: 20),
-          StoreToFollowWidgets(child: _getStoreToFollowCard(homeData)),
+          _getNewProductWidget(homeData, context),
         ],
       ),
     );
   }
 
-  Widget _getBannerWidget(List<Product>? banners) {
+  Widget _getBannerWidget(List<Product>? banners, BuildContext context) {
     if (banners != null) {
+      final bannerHeight = (Responsive.height(context) * 0.25)
+          .clamp(150.0, 220.0)
+          .toDouble();
       return Padding(
         padding: const EdgeInsets.only(
           top: AppPadding.p4,
@@ -93,7 +91,7 @@ class HomeContent extends StatelessWidget {
           options: CarouselOptions(
             autoPlay: true,
             enableInfiniteScroll: true,
-            height: AppSize.s200,
+            height: bannerHeight,
             enlargeCenterPage: true,
           ),
         ),
@@ -103,19 +101,21 @@ class HomeContent extends StatelessWidget {
     }
   }
 
-  Widget _getCategoryWidget(List<Product>? categories) {
+  Widget _getCategoryWidget(List<Product>? categories, BuildContext context) {
     if (categories != null) {
+      final crossAxisCount = Responsive.isCompact(context) ? 3 : 4;
+      final tileSize = Responsive.width(context) / crossAxisCount;
       return SizedBox(
         width: double.infinity,
-        height: 196,
+        height: tileSize * 2,
         child: GridView.builder(
-          physics: NeverScrollableScrollPhysics(),
           primary: false,
           itemCount: categories.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
+            crossAxisCount: crossAxisCount,
             crossAxisSpacing: 1.5,
             mainAxisSpacing: 1.5,
+            childAspectRatio: 1,
           ),
           itemBuilder: (context, index) => CategoriesWidget(
             category: categories[index].category,
@@ -128,11 +128,11 @@ class HomeContent extends StatelessWidget {
     }
   }
 
-  Widget _getNewProductWidget(List<Product>? newProduct) {
+  Widget _getNewProductWidget(List<Product>? newProduct, BuildContext context) {
     if (newProduct != null) {
       return SizedBox(
         width: double.infinity,
-        height: 200,
+        height: 205,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: EdgeInsets.symmetric(horizontal: AppPadding.p12),
@@ -148,53 +148,6 @@ class HomeContent extends StatelessWidget {
                 ),
               );
             },
-          ),
-        ),
-      );
-    } else {
-      return Container();
-    }
-  }
-
-  Widget _getPopularProductWidget(List<Product>? popularProduct) {
-    if (popularProduct != null) {
-      return SizedBox(
-        width: double.infinity,
-        height: 200,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          padding: EdgeInsets.symmetric(horizontal: AppPadding.p12),
-          itemCount: popularProduct.length,
-          itemBuilder: (context, index) => CardView(
-            image: popularProduct[index].thumbnail,
-            name: popularProduct[index].title,
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ProductView(title: popularProduct[index].title),
-                ),
-              );
-            },
-          ),
-        ),
-      );
-    } else {
-      return Container();
-    }
-  }
-
-  Widget _getStoreToFollowCard(List<Product>? storeToFollow) {
-    if (storeToFollow != null) {
-      return SizedBox(
-        height: 240,
-        child: ListView.builder(
-          itemCount: storeToFollow.length,
-          scrollDirection: Axis.horizontal,
-          padding: EdgeInsets.symmetric(horizontal: AppPadding.p12),
-          itemBuilder: (context, index) => StoreToFollowCard(
-            image: storeToFollow[index].thumbnail,
-            title: storeToFollow[index].title,
           ),
         ),
       );

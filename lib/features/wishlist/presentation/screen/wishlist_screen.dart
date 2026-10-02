@@ -26,6 +26,7 @@ class WishListView extends ConsumerWidget {
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
+                  childAspectRatio: 0.72,
                 ),
                 itemBuilder: (context, index) {
                   final product = wishList[index];

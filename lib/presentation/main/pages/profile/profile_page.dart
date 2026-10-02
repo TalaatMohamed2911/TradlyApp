@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tradly/core/utils/responsive.dart';
 import 'package:tradly/core/utils/app_prefs.dart';
 import 'package:tradly/core/di/di.dart';
 import 'package:tradly/data/data_source/local_data_source.dart';
@@ -25,29 +26,38 @@ class _ProfilePageState extends State<ProfilePage> {
       children: [
         Column(children: [Container(height: 260, color: ColorManager.primary)]),
         Positioned(
-          left: 25,
+          left: Responsive.horizontalPadding(context),
+          right: Responsive.horizontalPadding(context),
           top: 50,
           child: Row(
             children: [
               SvgPicture.asset(ImageAssets.tAvatar, width: 70, height: 70),
-              SizedBox(width: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 5,
-                children: [
-                  Text(
-                    'Tradly Team',
-                    style: Theme.of(context).textTheme.displayLarge,
-                  ),
-                  Text(
-                    '+1 9998887776',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  Text(
-                    'info@tradly.co',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                ],
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 5,
+                  children: [
+                    Text(
+                      'Tradly Team',
+                      style: Theme.of(context).textTheme.displayLarge,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      '+1 9998887776',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      'info@tradly.co',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -58,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
             borderRadius: BorderRadius.circular(8),
           ),
           height: 288,
-          width: 335,
+          width: Responsive.width(context) - 32,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

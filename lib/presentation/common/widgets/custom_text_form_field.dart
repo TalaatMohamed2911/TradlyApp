@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tradly/presentation/resourcses/values_manager.dart';
+import 'package:tradly/core/utils/responsive.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
@@ -17,9 +17,8 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: AppPadding.p40,
-        right: AppPadding.p40,
+      padding: EdgeInsets.symmetric(
+        horizontal: Responsive.horizontalPadding(context),
       ),
       child: TextFormField(
         controller: controller,

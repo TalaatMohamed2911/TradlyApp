@@ -175,8 +175,6 @@ class CartBody extends StatelessWidget {
                     ],
                   ),
                 ),
-
-                const SizedBox(height: 130),
               ],
             ),
           ),

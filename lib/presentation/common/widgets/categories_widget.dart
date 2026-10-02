@@ -14,8 +14,6 @@ class CategoriesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 93,
-      height: 93,
       color: ColorManager.primary.withAlpha(180),
       child: GestureDetector(
         onTap: () {
@@ -39,6 +37,8 @@ class CategoriesWidget extends StatelessWidget {
                 category,
                 style: Theme.of(context).textTheme.labelLarge,
                 textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
