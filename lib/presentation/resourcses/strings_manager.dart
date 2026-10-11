@@ -35,6 +35,8 @@ class AppStrings {
   static const String home = "home_title";
   static const String tradly = "tradly_title";
   static const String browse = "browse_title";
+  static const String search = "search";
+  static const String noProductFound = "no_porduct_found";
   static const String orderHistory = "order_history";
   static const String profile = "profile_title";
   static const String store = "store_title";
@@ -46,6 +48,12 @@ class AppStrings {
   static const String carouselSlider1 = "ready_to_deliver";
   static const String startShopping = "start_shopping";
   static const String addToCart = "add_to_cart";
+  static const String cart = "cart";
+  static const String emptyCart = "cart_is_empty";
+  static const String continuePayment = "continue_payment";
+  static const String addNewAddress = "add_new_address";
+  static const String useCurrentLocation = "use_current_location";
+  static const String saveAddress = " save_address";
   static const String follow = "follow";
   static const String about = "about";
   static const String details = "details";

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tradly/core/utils/responsive.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? errorText;
   final TextInputType? keyboardType;
   final String? labelText;

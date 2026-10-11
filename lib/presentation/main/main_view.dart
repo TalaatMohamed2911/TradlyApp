@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:tradly/features/browse/presentation/screens/browse_page.dart';
 import 'package:tradly/features/products/presentation/screen/home_screen.dart';
 import 'package:tradly/presentation/resourcses/routes_manager.dart';
 import '../resourcses/colors_manager.dart';
 import '../resourcses/strings_manager.dart';
 import '../resourcses/values_manager.dart';
-import 'pages/browse/browse_page.dart';
 import 'pages/order_history/order_history.dart';
 import 'pages/profile/profile_page.dart';
 import 'pages/store/store_page.dart';
