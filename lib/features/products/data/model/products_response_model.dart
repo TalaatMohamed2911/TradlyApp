@@ -2,7 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 import 'product_model.dart';
 
- part 'product_response_model.g.dart'; 
+part 'product_response_model.g.dart';
+
 @JsonSerializable()
 class ProductsResponseModel {
   final List<ProductModel> products;

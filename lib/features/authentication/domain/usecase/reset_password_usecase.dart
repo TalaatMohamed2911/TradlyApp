@@ -10,7 +10,7 @@ class ResetPasswordUsecase extends BaseUsecase<String, ResetPassword> {
   ResetPasswordUsecase(this._authenticationRepository);
 
   @override
-  Future<Either<Failure, ResetPassword>> execute(String input) async {
-    return await _authenticationRepository.resetPassword(input);
+  Future<Either<Failure, ResetPassword>> execute(String email) async {
+    return await _authenticationRepository.resetPassword(email);
   }
 }

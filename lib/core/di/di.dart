@@ -63,7 +63,7 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<ProductsRepository>(
     () => ProductsRepositoryImpl(instance()),
   );
-
+  // usecases
   instance.registerLazySingleton(
     () => GetProductsUseCase(instance<ProductsRepository>()),
   );
@@ -78,6 +78,7 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton(
     () => GetCategoryProductsUsecase(instance<ProductsRepository>()),
   );
+  // ----------------------------
   instance.registerLazySingleton<CartLocalDataSource>(
     () => CartLocalDataSource(),
   );

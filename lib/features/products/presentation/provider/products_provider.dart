@@ -8,7 +8,7 @@ class ProductsNotifier extends AsyncNotifier<List<Product>> {
 
   @override
   Future<List<Product>> build() async {
-    final result = await _useCase.execute(limit: 30, skip: 0);
+    final result = await _useCase.execute(limit: 12, skip: 0);
 
     return result.fold((failure) => throw failure, (products) => products);
   }

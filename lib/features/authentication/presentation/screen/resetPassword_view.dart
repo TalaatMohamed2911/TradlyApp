@@ -39,7 +39,6 @@ class _ResetpasswordViewState extends State<ResetpasswordView> {
         elevation: 0.0,
         iconTheme: IconThemeData(color: ColorManager.primary),
       ),
-
       backgroundColor: ColorManager.primary,
       body: _getContentWidget(),
     );

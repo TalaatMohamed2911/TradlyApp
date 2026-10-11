@@ -8,6 +8,7 @@ import 'package:tradly/features/products/domain/repository/products_repository.d
 class ProductsRepositoryImpl implements ProductsRepository {
   final ProductsDataSource _productsDataSource;
   ProductsRepositoryImpl(this._productsDataSource);
+
   @override
   Future<Either<Failure, List<Product>>> getProducts({
     required int limit,
@@ -32,8 +33,10 @@ class ProductsRepositoryImpl implements ProductsRepository {
   @override
   Future<Either<Failure, Product>> getProductsDetails(int productId) async {
     try {
-      final result = await _productsDataSource.getProductDetails(productId);
-      return Right(result.toDomain());
+      final productModel = await _productsDataSource.getProductDetails(
+        productId,
+      );
+      return Right(productModel.toDomain());
     } catch (e) {
       return Left(Failure(500, e.toString()));
     }

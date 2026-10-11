@@ -66,9 +66,15 @@ extension DataSourceExtension on DataSource {
       case DataSource.noContent:
         return Failure(ResponseCode.noContent, ResponseMessage.noContent.tr());
       case DataSource.badRequest:
-        return Failure(ResponseCode.badRequest, ResponseMessage.badRequest.tr());
+        return Failure(
+          ResponseCode.badRequest,
+          ResponseMessage.badRequest.tr(),
+        );
       case DataSource.unauthorized:
-        return Failure(ResponseCode.unauthorized, ResponseMessage.unauthorized.tr());
+        return Failure(
+          ResponseCode.unauthorized,
+          ResponseMessage.unauthorized.tr(),
+        );
       case DataSource.forbidden:
         return Failure(ResponseCode.forbidden, ResponseMessage.forbidden.tr());
       case DataSource.notFound:
@@ -86,7 +92,10 @@ extension DataSourceExtension on DataSource {
       case DataSource.cancel:
         return Failure(ResponseCode.cancel, ResponseMessage.cancel.tr());
       case DataSource.sendTimeout:
-        return Failure(ResponseCode.sendTimeout, ResponseMessage.sendTimeout.tr());
+        return Failure(
+          ResponseCode.sendTimeout,
+          ResponseMessage.sendTimeout.tr(),
+        );
       case DataSource.recieveTimeout:
         return Failure(
           ResponseCode.recieveTimeout,
@@ -103,7 +112,10 @@ extension DataSourceExtension on DataSource {
           ResponseMessage.defaultObject.tr(),
         );
       case DataSource.cacheError:
-        return Failure(ResponseCode.cacheError, ResponseMessage.cacheError.tr());
+        return Failure(
+          ResponseCode.cacheError,
+          ResponseMessage.cacheError.tr(),
+        );
     }
   }
 }

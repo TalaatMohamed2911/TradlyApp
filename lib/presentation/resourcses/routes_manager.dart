@@ -1,6 +1,8 @@
 import 'package:tradly/core/di/di.dart';
 import 'package:tradly/features/authentication/presentation/screen/resetPassword_view.dart';
 import 'package:tradly/features/authentication/presentation/screen/login_view.dart';
+import 'package:tradly/features/cart/presentation/screen/cart_screen.dart';
+import 'package:tradly/features/wishlist/presentation/screen/wishlist_screen.dart';
 import 'package:tradly/presentation/main/main_view.dart';
 import 'package:tradly/presentation/onboarding/view/onboarding_view.dart';
 import 'package:tradly/features/authentication/presentation/screen/register_view.dart';
@@ -17,7 +19,6 @@ class Routes {
   //otp
   static const String homeScreen = "/homeScreen";
   static const String browseScreen = "/browseScreen";
-  static const String productDetails = "/productDetails";
 
   //store
   static const String orderHistoryScreen = "/orderHistoryScreen";
@@ -47,6 +48,10 @@ class RouteGenerator {
         );
       case Routes.homeScreen:
         return MaterialPageRoute(builder: (context) => const MainView());
+      case Routes.wishListScreen:
+        return MaterialPageRoute(builder: (context) => WishListView());
+      case Routes.checkOutScreen:
+        return MaterialPageRoute(builder: (context) => CartView());
 
       default:
         return noRouteDefined();

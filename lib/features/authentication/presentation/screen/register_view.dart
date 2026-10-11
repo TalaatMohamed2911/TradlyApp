@@ -18,7 +18,6 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   final RegisterViewModel _viewModel = instance<RegisterViewModel>();
-  final AppPreferences _appPreferences = instance<AppPreferences>();
 
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -28,6 +27,8 @@ class _RegisterViewState extends State<RegisterView> {
       TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final AppPreferences _appPreferences = instance<AppPreferences>();
 
   void _bind() {
     _viewModel.start();
@@ -54,7 +55,9 @@ class _RegisterViewState extends State<RegisterView> {
     ) {
       if (isRegistered) {
         _appPreferences.setUserRegistered();
-        Navigator.of(context).pushReplacementNamed(Routes.homeScreen);
+        Navigator.of(
+          context,
+        ).pushNamedAndRemoveUntil(Routes.loginScreen, (route) => false);
       }
     });
   }
@@ -206,6 +209,7 @@ class _RegisterViewState extends State<RegisterView> {
     _lastNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 }

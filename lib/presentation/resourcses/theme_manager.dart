@@ -28,7 +28,7 @@ ThemeData getApplicationTheme() {
     // elevatedbutton theme
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: ColorManager.primary,
+        backgroundColor: ColorManager.lightPrimary,
         disabledBackgroundColor: ColorManager.grey,
         textStyle: getMeduimStyle(
           color: ColorManager.white,
@@ -132,12 +132,12 @@ ThemeData getApplicationTheme() {
           width: AppSize.s1_5,
         ),
       ),
-      // focusedErrorBorder: OutlineInputBorder(
-      //   borderSide: BorderSide(color: ColorManager.red, width: AppSize.s1_5),
-      //   borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
-      // ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: ColorManager.red, width: AppSize.s1_5),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s24)),
+      ),
       errorBorder: OutlineInputBorder(
-        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s24)),
         borderSide: BorderSide(color: ColorManager.red, width: AppSize.s1_5),
       ),
     ),
