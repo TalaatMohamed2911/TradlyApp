@@ -39,8 +39,6 @@ class PaymentOptionScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: const [
-                  AddPaymentMethod(),
-
                   PaymentMethods(),
 
                   DeliveryAddress(),

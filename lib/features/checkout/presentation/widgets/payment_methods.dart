@@ -9,11 +9,9 @@ class PaymentMethods extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedPayment = ref.watch(paymentMethodProvider);
-
     return Container(
       margin: const EdgeInsets.only(top: 5),
       color: Colors.white,
-
       child: Column(
         children: [
           _PaymentOption(
@@ -25,24 +23,15 @@ class PaymentMethods extends ConsumerWidget {
           _divider(),
 
           _PaymentOption(
-            title: 'Netbanking',
-            value: 'Netbanking',
+            title: 'Wallet',
+            value: 'Wallet',
             selectedPayment: selectedPayment,
           ),
-
           _divider(),
 
           _PaymentOption(
             title: 'Cash on Delivery',
             value: 'Cash on Delivery',
-            selectedPayment: selectedPayment,
-          ),
-
-          _divider(),
-
-          _PaymentOption(
-            title: 'Wallet',
-            value: 'Wallet',
             selectedPayment: selectedPayment,
           ),
         ],
@@ -58,7 +47,7 @@ class PaymentMethods extends ConsumerWidget {
 class _PaymentOption extends ConsumerWidget {
   final String title;
   final String value;
-  final String selectedPayment;
+  final String? selectedPayment;
 
   const _PaymentOption({
     required this.title,

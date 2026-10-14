@@ -20,6 +20,7 @@ class TradlyApp extends StatefulWidget {
 
 class _TradlyAppState extends State<TradlyApp> {
   final AppPreferences _appPreferences = instance<AppPreferences>();
+
   @override
   void didChangeDependencies() {
     _appPreferences.getAppLocale().then((local) => context.setLocale(local));

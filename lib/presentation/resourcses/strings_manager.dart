@@ -53,7 +53,7 @@ class AppStrings {
   static const String continuePayment = "continue_payment";
   static const String addNewAddress = "add_new_address";
   static const String useCurrentLocation = "use_current_location";
-  static const String saveAddress = " save_address";
+  static const String saveAddress = "save_address";
   static const String follow = "follow";
   static const String about = "about";
   static const String details = "details";

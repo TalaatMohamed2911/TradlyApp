@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tradly/core/utils/responsive.dart';
 import 'package:tradly/core/utils/app_prefs.dart';
 import 'package:tradly/core/di/di.dart';
-import 'package:tradly/data/data_source/local_data_source.dart';
+// import 'package:tradly/core/utils/local_data_source.dart';
 import 'package:tradly/presentation/resourcses/assets_manager.dart';
 import 'package:tradly/presentation/resourcses/routes_manager.dart';
 import '../../../resourcses/colors_manager.dart';
@@ -18,7 +18,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final AppPreferences _appPreferences = instance<AppPreferences>();
-  final LocalDataSource _localDataSource = instance<LocalDataSource>();
+  // final LocalDataSource _localDataSource = instance<LocalDataSource>();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -132,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void _logout() {
     _appPreferences.logOut();
-    _localDataSource.clearCache();
+    // _localDataSource.clearCache();
     Navigator.of(context).pushReplacementNamed(Routes.loginScreen);
   }
 }
