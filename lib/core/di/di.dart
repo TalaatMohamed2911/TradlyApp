@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:tradly/core/utils/app_prefs.dart';
 import 'package:tradly/core/network/test_api.dart';
-import 'package:tradly/data/data_source/local_data_source.dart';
+// import 'package:tradly/core/utils/local_data_source.dart';
 import 'package:tradly/core/network/app_api.dart';
 import 'package:tradly/core/network/dio_factory.dart';
 import 'package:tradly/features/authentication/data/datasource/authentication_data_source.dart';
@@ -10,6 +10,7 @@ import 'package:tradly/features/authentication/domain/repository/authentication_
 import 'package:tradly/features/cart/data/data_source/cart_local_data_source.dart';
 import 'package:tradly/features/cart/data/repository/cart_repository_impl.dart';
 import 'package:tradly/features/cart/domain/repository/cart_repository.dart';
+import 'package:tradly/features/checkout/data/data_source/stripe_payment_data_source.dart';
 import 'package:tradly/features/products/data/data_source/products_data_source.dart';
 import 'package:tradly/features/products/data/repository/products_repository_impl.dart';
 import 'package:tradly/features/products/domain/usecase/get_category_products_usecase.dart';
@@ -54,7 +55,7 @@ Future<void> initAppModule() async {
     () => AuthenticationRepositoryImpl(instance()),
   );
 
-  instance.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl());
+  // instance.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl());
 
   instance.registerLazySingleton<ProductsDataSource>(
     () => ProductsDataSourceImpl(instance()),
@@ -63,7 +64,7 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<ProductsRepository>(
     () => ProductsRepositoryImpl(instance()),
   );
-
+  // usecases
   instance.registerLazySingleton(
     () => GetProductsUseCase(instance<ProductsRepository>()),
   );
@@ -78,6 +79,7 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton(
     () => GetCategoryProductsUsecase(instance<ProductsRepository>()),
   );
+  // ----------------------------
   instance.registerLazySingleton<CartLocalDataSource>(
     () => CartLocalDataSource(),
   );
@@ -89,6 +91,10 @@ Future<void> initAppModule() async {
   );
   instance.registerLazySingleton<WishlistRepository>(
     () => WishlistRepositoryImpl(instance()),
+  );
+  // Stripe
+  instance.registerLazySingleton<StripePaymentDataSource>(
+    () => StripePaymentDataSource(dio),
   );
 }
 

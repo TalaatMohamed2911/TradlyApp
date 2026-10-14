@@ -28,6 +28,12 @@ class ResetPasswordViewModel extends BaseViewModel
   }
 
   @override
+  Sink get inputEmail => _emailStreamController.sink;
+
+  @override
+  Sink get inputIsInputValid => _isInputValidStreamController.sink;
+
+  @override
   void resetPassword() async {
     // inputState.add(
     //   LoadingState(stateRendererType: StateRendererType.popupLoadingState),
@@ -47,12 +53,6 @@ class ResetPasswordViewModel extends BaseViewModel
       },
     );
   }
-
-  @override
-  Sink get inputEmail => _emailStreamController.sink;
-
-  @override
-  Sink get inputIsInputValid => _isInputValidStreamController.sink;
 
   @override
   Stream<bool> get outIsEmailValid =>

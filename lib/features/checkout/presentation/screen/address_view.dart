@@ -1,9 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:tradly/features/checkout/domain/entity/address.dart';
 import 'package:tradly/features/checkout/presentation/provider/address_provider.dart';
 import 'package:tradly/features/checkout/presentation/provider/location_provider.dart';
+import 'package:tradly/presentation/resourcses/colors_manager.dart';
+import 'package:tradly/presentation/resourcses/strings_manager.dart';
+import 'package:tradly/presentation/resourcses/values_manager.dart';
 
 class AddAddressScreen extends ConsumerStatefulWidget {
   const AddAddressScreen({super.key});
@@ -50,22 +54,22 @@ class _AddAddressScreenState extends ConsumerState<AddAddressScreen> {
 
     final place = placemarks.first;
 
-    nameController.text = place.street ?? '';
+    nameController.text = place.locality ?? '';
     phoneController.text = place.name ?? '';
-    streetAddressController.text = place.administrativeArea ?? '';
-    cityController.text = place.locality ?? '';
+    streetAddressController.text = place.street ?? '';
+    cityController.text = place.administrativeArea ?? '';
     stateController.text = place.isoCountryCode ?? '';
     zipCodeController.text = place.postalCode ?? '';
   }
 
   void saveAddress() {
     final address = Address(
-      name: nameController.text.trim(),
-      phone: phoneController.text.trim(),
-      streetAddress: stateController.text.trim(),
-      city: cityController.text.trim(),
-      state: stateController.text.trim(),
-      zipCode: zipCodeController.text.trim(),
+      name: nameController.text,
+      phone: phoneController.text,
+      streetAddress: stateController.text,
+      city: cityController.text,
+      state: stateController.text,
+      zipCode: zipCodeController.text,
     );
 
     ref.read(addressProvider.notifier).addAddress(address);
@@ -76,68 +80,135 @@ class _AddAddressScreenState extends ConsumerState<AddAddressScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Add New Address')),
-
+      appBar: AppBar(
+        title: Text(AppStrings.addNewAddress.tr()),
+        iconTheme: IconThemeData(color: ColorManager.white),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
           child: Column(
+            spacing: 8,
             children: [
               OutlinedButton.icon(
                 onPressed: getCurrentLocation,
                 icon: const Icon(Icons.my_location),
-                label: const Text('Use Current Location'),
+                label: Text(AppStrings.useCurrentLocation.tr()),
               ),
 
               TextField(
                 controller: nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                  labelStyle: TextStyle(color: ColorManager.primary),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(AppSize.s24),
+                    ),
+                    borderSide: BorderSide(
+                      color: ColorManager.primary,
+                      width: AppSize.s1_5,
+                    ),
+                  ),
+                ),
               ),
-
-              const SizedBox(height: 12),
 
               TextField(
                 controller: phoneController,
                 keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(labelText: 'Phone'),
+                decoration: InputDecoration(
+                  labelText: 'Phone',
+                  labelStyle: TextStyle(color: ColorManager.primary),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(AppSize.s24),
+                    ),
+                    borderSide: BorderSide(
+                      color: ColorManager.primary,
+                      width: AppSize.s1_5,
+                    ),
+                  ),
+                ),
               ),
-
-              const SizedBox(height: 12),
 
               TextField(
                 controller: streetAddressController,
-                decoration: const InputDecoration(labelText: 'Street Address'),
+                decoration: InputDecoration(
+                  labelText: 'Street Address',
+                  labelStyle: TextStyle(color: ColorManager.primary),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(AppSize.s24),
+                    ),
+                    borderSide: BorderSide(
+                      color: ColorManager.primary,
+                      width: AppSize.s1_5,
+                    ),
+                  ),
+                ),
               ),
-
-              const SizedBox(height: 12),
 
               TextField(
                 controller: cityController,
-                decoration: const InputDecoration(labelText: 'City'),
+                decoration: InputDecoration(
+                  labelText: 'City',
+                  labelStyle: TextStyle(color: ColorManager.primary),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(AppSize.s24),
+                    ),
+                    borderSide: BorderSide(
+                      color: ColorManager.primary,
+                      width: AppSize.s1_5,
+                    ),
+                  ),
+                ),
               ),
-
-              const SizedBox(height: 12),
 
               TextField(
                 controller: stateController,
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: 'State'),
+                decoration: InputDecoration(
+                  labelText: 'State',
+                  labelStyle: TextStyle(color: ColorManager.primary),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(AppSize.s24),
+                    ),
+                    borderSide: BorderSide(
+                      color: ColorManager.primary,
+                      width: AppSize.s1_5,
+                    ),
+                  ),
+                ),
               ),
-              const SizedBox(height: 12),
 
               TextField(
                 controller: zipCodeController,
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: 'Zipcode'),
+                decoration: InputDecoration(
+                  labelText: 'Zipcode',
+                  labelStyle: TextStyle(color: ColorManager.primary),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(AppSize.s24),
+                    ),
+                    borderSide: BorderSide(
+                      color: ColorManager.primary,
+                      width: AppSize.s1_5,
+                    ),
+                  ),
+                ),
               ),
-
-              const SizedBox(height: 24),
 
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: saveAddress,
-                  child: const Text('Save Address'),
+                  child: Text(
+                    AppStrings.saveAddress.tr(),
+                    style: Theme.of(context).textTheme.displayLarge,
+                  ),
                 ),
               ),
             ],

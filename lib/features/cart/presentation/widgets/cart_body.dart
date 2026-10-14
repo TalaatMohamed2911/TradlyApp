@@ -1,11 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tradly/features/checkout/domain/entity/address.dart';
 import 'package:tradly/features/checkout/presentation/screen/address_view.dart';
-import 'package:tradly/features/cart/presentation/widgets/items_widget.dart';
+import 'package:tradly/features/cart/presentation/widgets/cart_items_widget.dart';
 import 'package:tradly/features/cart/domain/entity/cart_item.dart';
 import 'package:tradly/features/cart/presentation/provider/cart_provider.dart';
 import 'package:tradly/features/checkout/presentation/screen/payment_option_screen.dart';
+import 'package:tradly/presentation/resourcses/strings_manager.dart';
 
 class CartBody extends StatelessWidget {
   const CartBody({super.key, required this.cart, required this.address});
@@ -18,13 +20,10 @@ class CartBody extends StatelessWidget {
     final hasAddress = address != null;
     return Column(
       children: [
-        /// Content
         Expanded(
           child: SingleChildScrollView(
             child: Column(
               children: [
-                /// Add New Address
-
                 if (address == null)
                   Container(
                     width: double.infinity,
@@ -40,13 +39,9 @@ class CartBody extends StatelessWidget {
                           ),
                         );
                       },
-                      child: const Text(
-                        '+ Add New Address',
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
+                      child: Text(
+                        AppStrings.addNewAddress.tr(),
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
                   )
@@ -54,8 +49,7 @@ class CartBody extends StatelessWidget {
                   ListTile(
                     title: Text(hasAddress ? address!.name : ""),
                     subtitle: Text(
-                      '${hasAddress ? address!.streetAddress : ""}, ${hasAddress ? address!.city : ""}\n'
-                      '${hasAddress ? address!.phone : ""}',
+                      '${hasAddress ? address!.streetAddress : ""}, ${hasAddress ? address!.city : ""}',
                     ),
                     trailing: IconButton(
                       icon: const Icon(Icons.edit),
@@ -65,13 +59,11 @@ class CartBody extends StatelessWidget {
                     ),
                   ),
 
-                /// Space
                 const SizedBox(height: 10),
 
                 /// Cart Item
                 CartItemWidget(cart: cart),
 
-                /// Space
                 const SizedBox(height: 10),
 
                 /// Price Details
@@ -179,17 +171,12 @@ class CartBody extends StatelessWidget {
             ),
           ),
         ),
-
-        /// Bottom Payment Button
         Container(
           color: Colors.white,
-
-          padding: const EdgeInsets.fromLTRB(32, 14, 32, 24),
-
+          padding: const EdgeInsets.fromLTRB(32, 10, 32, 10),
           child: SizedBox(
             width: double.infinity,
             height: 52,
-
             child: ElevatedButton(
               onPressed: hasAddress
                   ? () {
@@ -200,24 +187,9 @@ class CartBody extends StatelessWidget {
                       );
                     }
                   : null,
-
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFA9D7D0),
-
-                elevation: 0,
-
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-              ),
-
-              child: const Text(
-                'Continue to Payment',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Text(
+                AppStrings.continuePayment.tr(),
+                style: Theme.of(context).textTheme.displayLarge,
               ),
             ),
           ),

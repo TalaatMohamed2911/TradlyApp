@@ -6,7 +6,6 @@ import 'package:tradly/features/products/domain/entity/product.dart';
 import 'package:tradly/presentation/common/widgets/card_view.dart';
 import 'package:tradly/presentation/common/widgets/categories_widget.dart';
 import 'package:tradly/presentation/common/widgets/title_with_seeall_btn.dart';
-import 'package:tradly/presentation/main/pages/browse/view/search.dart';
 import 'package:tradly/features/products/presentation/screen/product_details_screen.dart';
 import 'package:tradly/presentation/resourcses/colors_manager.dart';
 import 'package:tradly/presentation/resourcses/strings_manager.dart';
@@ -22,23 +21,6 @@ class HomeContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            color: ColorManager.primary,
-            padding: EdgeInsets.all(AppPadding.p18),
-            child: TextFormField(
-              readOnly: true,
-              onTap: () => Navigator.of(
-                context,
-              ).push(MaterialPageRoute(builder: (context) => SearchScreen())),
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search_rounded),
-                hintText: "Search Product",
-                filled: true,
-                fillColor: ColorManager.white,
-                hintStyle: Theme.of(context).textTheme.bodySmall,
-              ),
-            ),
-          ),
           _getBannerWidget(homeData, context),
           _getCategoryWidget(homeData, context),
           TitleWithSeeAllBtn(
@@ -46,13 +28,13 @@ class HomeContent extends StatelessWidget {
             btnTitle: AppStrings.seeAll.tr(),
             btnPress: () {},
           ),
-          _getNewProductWidget(homeData, context),
+          _getProductWidget(homeData, context),
           TitleWithSeeAllBtn(
             title: AppStrings.popularProduct.tr(),
             btnTitle: AppStrings.seeAll.tr(),
             btnPress: () {},
           ),
-          _getNewProductWidget(homeData, context),
+          _getProductWidget(homeData, context),
         ],
       ),
     );
@@ -83,7 +65,7 @@ class HomeContent extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(AppSize.s12),
-                  child: Image.network(banner.images[0], fit: BoxFit.fill),
+                  child: Image.network(banner.thumbnail, fit: BoxFit.fill),
                 ),
               ),
             );
@@ -101,6 +83,7 @@ class HomeContent extends StatelessWidget {
     }
   }
 
+  // TODO:: Modify Categories Later
   Widget _getCategoryWidget(List<Product>? categories, BuildContext context) {
     if (categories != null) {
       final crossAxisCount = Responsive.isCompact(context) ? 3 : 4;
@@ -117,10 +100,12 @@ class HomeContent extends StatelessWidget {
             mainAxisSpacing: 1.5,
             childAspectRatio: 1,
           ),
-          itemBuilder: (context, index) => CategoriesWidget(
-            category: categories[index].category,
-            image: categories[index].thumbnail,
-          ),
+          itemBuilder: (context, index) {
+            return CategoriesWidget(
+              category: categories[index].category,
+              image: categories[index].thumbnail,
+            );
+          },
         ),
       );
     } else {
@@ -128,27 +113,30 @@ class HomeContent extends StatelessWidget {
     }
   }
 
-  Widget _getNewProductWidget(List<Product>? newProduct, BuildContext context) {
-    if (newProduct != null) {
+  Widget _getProductWidget(List<Product>? products, BuildContext context) {
+    if (products != null) {
       return SizedBox(
         width: double.infinity,
         height: 205,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: EdgeInsets.symmetric(horizontal: AppPadding.p12),
-          itemCount: newProduct.length,
-          itemBuilder: (context, index) => CardView(
-            image: newProduct[index].thumbnail,
-            name: newProduct[index].title,
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ProductDetailsScreen(productId: homeData[index].id),
-                ),
-              );
-            },
-          ),
+          itemCount: products.length,
+          itemBuilder: (context, index) {
+            final product = products[index];
+            return CardView(
+              image: product.thumbnail,
+              name: product.title,
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ProductDetailsScreen(productId: product.id),
+                  ),
+                );
+              },
+            );
+          },
         ),
       );
     } else {

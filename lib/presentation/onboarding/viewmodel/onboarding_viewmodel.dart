@@ -1,13 +1,12 @@
 import 'dart:async';
-import 'package:tradly/domain/model/models.dart';
+
 import 'package:tradly/presentation/base/baseviewmodel.dart';
 import 'package:tradly/presentation/resourcses/assets_manager.dart';
 import 'package:tradly/presentation/resourcses/strings_manager.dart';
 
 class OnBoardingViewModel extends BaseViewModel
     with OnBoardingViewModelInputs, OnBoardingViewModelOutputs {
-  final StreamController<SliderViewObject> _streamController =
-      StreamController<SliderViewObject>();
+  final _streamController = StreamController<SliderViewObject>();
   late final List<SliderObject> _list;
   int _currentIndex = 0;
 
@@ -20,6 +19,18 @@ class OnBoardingViewModel extends BaseViewModel
   void start() {
     _list = _getSliderData();
     _postDataToView();
+  }
+
+  List<SliderObject> _getSliderData() => [
+    SliderObject(ImageAssets.onboardingLogo1, AppStrings.onBoardingTitle1),
+    SliderObject(ImageAssets.onboardingLogo2, AppStrings.onBoardingTitle2),
+    SliderObject(ImageAssets.onboardingLogo3, AppStrings.onBoardingTitle3),
+  ];
+
+  void _postDataToView() {
+    inputSliderViewObject.add(
+      SliderViewObject(_list[_currentIndex], _list.length, _currentIndex),
+    );
   }
 
   @override
@@ -52,19 +63,6 @@ class OnBoardingViewModel extends BaseViewModel
   @override
   Stream<SliderViewObject> get outputSliderViewObject =>
       _streamController.stream.map((sliderViewObject) => sliderViewObject);
-
-  // private Functions
-  void _postDataToView() {
-    inputSliderViewObject.add(
-      SliderViewObject(_list[_currentIndex], _list.length, _currentIndex),
-    );
-  }
-
-  List<SliderObject> _getSliderData() => [
-    SliderObject(ImageAssets.onboardingLogo1, AppStrings.onBoardingTitle1),
-    SliderObject(ImageAssets.onboardingLogo2, AppStrings.onBoardingTitle2),
-    SliderObject(ImageAssets.onboardingLogo3, AppStrings.onBoardingTitle3),
-  ];
 }
 
 abstract mixin class OnBoardingViewModelInputs {
@@ -84,4 +82,11 @@ class SliderViewObject {
   int numOfSlides;
   int currentIndex;
   SliderViewObject(this.sliderObject, this.numOfSlides, this.currentIndex);
+}
+
+class SliderObject {
+  String image;
+  String title;
+
+  SliderObject(this.image, this.title);
 }

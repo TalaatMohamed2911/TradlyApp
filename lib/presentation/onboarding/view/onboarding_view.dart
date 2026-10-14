@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tradly/core/utils/app_prefs.dart';
 import 'package:tradly/core/di/di.dart';
-import 'package:tradly/domain/model/models.dart';
 import 'package:tradly/presentation/onboarding/viewmodel/onboarding_viewmodel.dart';
 import 'package:tradly/presentation/resourcses/assets_manager.dart';
 import 'package:tradly/presentation/resourcses/colors_manager.dart';
@@ -31,20 +30,20 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   @override
   void initState() {
-    _bind();
     super.initState();
+    _bind();
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
     _viewModel.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
+    return StreamBuilder<SliderViewObject>(
       stream: _viewModel.outputSliderViewObject,
       builder: (context, snapshot) {
         return _getContentWidget(snapshot.data);

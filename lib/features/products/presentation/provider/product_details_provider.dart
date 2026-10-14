@@ -7,16 +7,15 @@ import 'package:tradly/features/products/domain/usecase/get_product_details_usec
 
 class ProductDetailsNotifier extends AsyncNotifier<Product> {
   final int productId;
-
   ProductDetailsNotifier(this.productId);
 
   final GetProductDetailsUsecase _useCase =
       instance<GetProductDetailsUsecase>();
 
   @override
-  FutureOr<Product> build() async {
-    final result = await _useCase.execute(productId);
-    return result.fold((failure) => throw Exception(failure.message), (
+  Future<Product> build() async {
+    final response = await _useCase.execute(productId);
+    return response.fold((failure) => throw Exception(failure.message), (
       product,
     ) {
       return product;

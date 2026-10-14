@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:tradly/core/utils/app_prefs.dart';
 import 'package:tradly/core/di/di.dart';
 import 'package:tradly/presentation/resourcses/assets_manager.dart';
@@ -25,37 +26,22 @@ class _SplashViewState extends State<SplashView> {
   }
 
   void _goNext() async {
-    // bool isUserLoggedIn = await _appPreferences.isUserLoggedIn();
-    // if (!mounted) return;
+    bool isUserLoggedIn = await _appPreferences.isUserLoggedIn();
+    if (!mounted) return;
 
-    // if (isUserLoggedIn) {
-    //   Navigator.of(context).pushReplacementNamed(Routes.homeScreen);
-    // } else {
-    //   bool isOnBoardingScreenViewed = await _appPreferences
-    //       .isOnBoardingScreenViewed();
-    //   if (!mounted) return;
+    if (isUserLoggedIn) {
+      Navigator.of(context).pushReplacementNamed(Routes.homeScreen);
+    } else {
+      bool isOnBoardingScreenViewed = await _appPreferences
+          .isOnBoardingScreenViewed();
+      if (!mounted) return;
 
-    //   if (isOnBoardingScreenViewed) {
-    //     Navigator.of(context).pushReplacementNamed(Routes.loginScreen);
-    //   } else {
-    //     Navigator.of(context).pushReplacementNamed(Routes.onBoardingScreen);
-    //   }
-    // }
-    _appPreferences.isUserLoggedIn().then((isUserLoggedIn) {
-      if (isUserLoggedIn) {
-        Navigator.of(context).pushReplacementNamed(Routes.homeScreen);
+      if (isOnBoardingScreenViewed) {
+        Navigator.of(context).pushReplacementNamed(Routes.loginScreen);
       } else {
-        _appPreferences.isOnBoardingScreenViewed().then((
-          isOnBoardingScreenViewed,
-        ) {
-          if (isOnBoardingScreenViewed) {
-            Navigator.of(context).pushReplacementNamed(Routes.loginScreen);
-          } else {
-            Navigator.of(context).pushReplacementNamed(Routes.onBoardingScreen);
-          }
-        });
+        Navigator.of(context).pushReplacementNamed(Routes.onBoardingScreen);
       }
-    });
+    }
   }
 
   @override

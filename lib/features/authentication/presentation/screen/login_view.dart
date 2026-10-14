@@ -38,7 +38,9 @@ class _LoginViewState extends State<LoginView> {
     ) {
       if (isLoggedIn) {
         _appPreferences.setUserLoggedIn();
-        Navigator.of(context).pushReplacementNamed(Routes.homeScreen);
+        Navigator.of(
+          context,
+        ).pushNamedAndRemoveUntil(Routes.homeScreen, (route) => false);
       }
     });
   }
@@ -68,6 +70,7 @@ class _LoginViewState extends State<LoginView> {
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 AppStrings.welcome.tr(),
@@ -171,6 +174,8 @@ class _LoginViewState extends State<LoginView> {
   @override
   void dispose() {
     _viewModel.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 }

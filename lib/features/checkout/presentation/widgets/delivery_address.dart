@@ -11,26 +11,26 @@ class DeliveryAddress extends ConsumerWidget {
 
     return Container(
       margin: const EdgeInsets.only(top: 8),
-
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-
       color: Colors.white,
-
       child: Row(
         children: [
           Expanded(
             child: address == null
                 ? const Text(
                     'No address selected',
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(fontSize: 12, color: Colors.black),
                   )
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
 
                     children: [
                       Text(
-                        'Deliver to ${address.name}',
-                        style: const TextStyle(fontSize: 12),
+                        'Deliver to ${address.phone}',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade600,
+                        ),
                       ),
 
                       const SizedBox(height: 4),
@@ -50,23 +50,7 @@ class DeliveryAddress extends ConsumerWidget {
             onPressed: () {
               // Change address
             },
-
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xff359884),
-
-              foregroundColor: Colors.white,
-
-              elevation: 0,
-
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-
-              minimumSize: Size.zero,
-
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
-
+            style: ElevatedButton.styleFrom(foregroundColor: Colors.white),
             child: const Text('Change', style: TextStyle(fontSize: 12)),
           ),
         ],

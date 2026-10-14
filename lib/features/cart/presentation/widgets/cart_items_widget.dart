@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tradly/core/utils/responsive.dart';
 import 'package:tradly/features/cart/domain/entity/cart_item.dart';
 import 'package:tradly/features/cart/presentation/provider/cart_provider.dart';
+import 'package:tradly/presentation/resourcses/colors_manager.dart';
 
 class CartItemWidget extends StatelessWidget {
   const CartItemWidget({super.key, required this.cart});
@@ -10,7 +11,7 @@ class CartItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final imageSize = (Responsive.width(context) * 0.3)
-        .clamp(80.0, 108.0)
+        .clamp(80.0, 100.0)
         .toDouble();
 
     return ListView.builder(
@@ -22,7 +23,7 @@ class CartItemWidget extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -52,13 +53,9 @@ class CartItemWidget extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 5),
                         Text(
                           cart[index].product.title,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                          ),
+                          style: Theme.of(context).textTheme.headlineMedium,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -71,12 +68,9 @@ class CartItemWidget extends StatelessWidget {
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
                             Text(
-                              '\$${cart[index].product.price.toStringAsFixed(0)}',
-                              style: const TextStyle(
-                                color: Color(0xFF329985),
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              '\$${cart[index].product.price}',
+                              style: Theme.of(context).textTheme.headlineMedium
+                                  ?.copyWith(color: ColorManager.primary),
                             ),
 
                             const Text(
@@ -105,12 +99,40 @@ class CartItemWidget extends StatelessWidget {
                           children: [
                             Consumer(
                               builder: (context, ref, child) {
+                                return IconButton(
+                                  onPressed: () {
+                                    ref
+                                        .read(cartProvider.notifier)
+                                        .increaseQuantity(
+                                          cart[index].product.id,
+                                        );
+                                  },
+                                  icon: Icon(Icons.add),
+                                );
+                              },
+                            ),
+                            Consumer(
+                              builder: (context, ref, child) {
                                 return Text(
                                   'Qty : ${ref.read(cartProvider.notifier).getQuantity(cart[index].product.id)}',
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 14,
                                   ),
+                                );
+                              },
+                            ),
+                            Consumer(
+                              builder: (context, ref, child) {
+                                return IconButton(
+                                  onPressed: () {
+                                    ref
+                                        .read(cartProvider.notifier)
+                                        .decreaseQuantity(
+                                          cart[index].product.id,
+                                        );
+                                  },
+                                  icon: Icon(Icons.minimize),
                                 );
                               },
                             ),

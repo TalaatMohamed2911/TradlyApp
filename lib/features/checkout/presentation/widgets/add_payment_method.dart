@@ -7,9 +7,7 @@ class AddPaymentMethod extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-
       child: Column(
         children: [
           Container(
@@ -31,9 +29,7 @@ class AddPaymentMethod extends StatelessWidget {
                   ),
                   child: const Icon(Icons.add, color: Colors.grey, size: 28),
                 ),
-
                 const SizedBox(height: 12),
-
                 Text(
                   'Add Payment Method',
                   style: TextStyle(color: Colors.grey.shade400, fontSize: 13),
@@ -46,16 +42,11 @@ class AddPaymentMethod extends StatelessWidget {
 
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-
             children: [
               _buildDot(true),
-
               const SizedBox(width: 8),
-
               _buildDot(false),
-
               const SizedBox(width: 8),
-
               _buildDot(false),
             ],
           ),
@@ -68,10 +59,8 @@ class AddPaymentMethod extends StatelessWidget {
     return Container(
       width: active ? 7 : 6,
       height: active ? 7 : 6,
-
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-
         color: active ? const Color(0xff20B897) : Colors.grey.shade300,
       ),
     );

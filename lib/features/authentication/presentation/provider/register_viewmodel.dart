@@ -63,19 +63,18 @@ class RegisterViewModel extends BaseViewModel
   @override
   setFirstName(String firstName) {
     inputFirstName.add(firstName);
-    if (_isNameValid(firstName)) {
+    if (isNameValid(firstName)) {
       registerObject = registerObject.copyWith(firstName: firstName);
     } else {
       registerObject = registerObject.copyWith(firstName: "");
     }
-    // validate();
     inputAreAllInputsValid.add(null);
   }
 
   @override
   setLastName(String lastName) {
     inputLastName.add(lastName);
-    if (_isNameValid(lastName)) {
+    if (isNameValid(lastName)) {
       registerObject = registerObject.copyWith(lastName: lastName);
     } else {
       registerObject = registerObject.copyWith(lastName: "");
@@ -97,7 +96,7 @@ class RegisterViewModel extends BaseViewModel
   @override
   setPassword(String password) {
     inputPassword.add(password);
-    if (_isPasswordValid(password)) {
+    if (isPasswordValid(password)) {
       registerObject = registerObject.copyWith(password: password);
     } else {
       registerObject = registerObject.copyWith(password: "");
@@ -150,7 +149,7 @@ class RegisterViewModel extends BaseViewModel
   // --outputs
   @override
   Stream<bool> get outputIsFirstNameValid => _firstNameStreamController.stream
-      .map((firstName) => _isNameValid(firstName));
+      .map((firstName) => isNameValid(firstName));
 
   @override
   Stream<String?> get outputErrorFirstName => outputIsFirstNameValid.map(
@@ -158,8 +157,8 @@ class RegisterViewModel extends BaseViewModel
   );
 
   @override
-  Stream<bool> get outputIsLastNameValid => _lastNameStreamController.stream
-      .map((lastName) => _isNameValid(lastName));
+  Stream<bool> get outputIsLastNameValid =>
+      _lastNameStreamController.stream.map((lastName) => isNameValid(lastName));
 
   @override
   Stream<String?> get outputErrorLastName => outputIsLastNameValid.map(
@@ -177,7 +176,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   Stream<bool> get outputIsPasswordValid => _passwordStreamController.stream
-      .map((password) => _isPasswordValid(password));
+      .map((password) => isPasswordValid(password));
 
   @override
   Stream<String?> get outputErrorPassword => outputIsPasswordValid.map(
@@ -187,18 +186,16 @@ class RegisterViewModel extends BaseViewModel
   @override
   Stream<bool> get outputIsConfirmPasswordValid =>
       _confirmPasswordStreamController.stream.map(
-        (confirmedPassword) => _isPasswordValid(confirmedPassword),
+        (confirmedPassword) => _isPasswordMatched(
+          registerObject.password,
+          registerObject.confirmPassword,
+        ),
       );
 
   @override
   Stream<String?> get outputErrorConfirmPassword =>
       outputIsConfirmPasswordValid.map((passwordMatch) {
-        return _isPasswordMatched(
-              registerObject.password,
-              registerObject.confirmPassword,
-            )
-            ? null
-            : "Password doesn't Match";
+        return passwordMatch ? null : AppStrings.confirmPasswordError.tr();
       });
 
   @override
@@ -207,13 +204,6 @@ class RegisterViewModel extends BaseViewModel
       .map((_) => _areAllInputsValid());
 
   // --private functions
-  bool _isNameValid(String name) {
-    return name.length >= 6;
-  }
-
-  bool _isPasswordValid(String password) {
-    return password.length >= 6;
-  }
 
   bool _areAllInputsValid() {
     return registerObject.firstName.isNotEmpty &&
@@ -226,9 +216,6 @@ class RegisterViewModel extends BaseViewModel
   bool _isPasswordMatched(String password, String confirmedPassword) {
     return password == confirmedPassword;
   }
-  // validate() {
-  //   inputAreAllInputsValid.add(null);
-  // }
 }
 
 abstract mixin class RegisterViewModelInputs {

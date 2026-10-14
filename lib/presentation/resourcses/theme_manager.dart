@@ -28,7 +28,7 @@ ThemeData getApplicationTheme() {
     // elevatedbutton theme
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: ColorManager.primary,
+        backgroundColor: ColorManager.lightPrimary,
         disabledBackgroundColor: ColorManager.grey,
         textStyle: getMeduimStyle(
           color: ColorManager.white,
@@ -59,10 +59,6 @@ ThemeData getApplicationTheme() {
         color: ColorManager.white,
         fontsize: FontSize.s16,
       ),
-      labelMedium: getRegularStyle(
-        color: ColorManager.white,
-        fontsize: FontSize.s18,
-      ),
       titleSmall: getRegularStyle(
         // -->
         color: ColorManager.white,
@@ -73,6 +69,7 @@ ThemeData getApplicationTheme() {
         fontSize: FontSize.s16,
       ),
       bodySmall: getRegularStyle(
+        // -->
         color: ColorManager.darkGrey,
         fontsize: FontSize.s14,
       ),
@@ -105,8 +102,9 @@ ThemeData getApplicationTheme() {
         fontSize: FontSize.s12,
       ),
       displayLarge: getBoldStyle(
+        // -->
         color: ColorManager.white,
-        fontSize: FontSize.s14,
+        fontSize: FontSize.s18,
       ),
     ),
     // Input decoration theme(text form field)
@@ -132,12 +130,12 @@ ThemeData getApplicationTheme() {
           width: AppSize.s1_5,
         ),
       ),
-      // focusedErrorBorder: OutlineInputBorder(
-      //   borderSide: BorderSide(color: ColorManager.red, width: AppSize.s1_5),
-      //   borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
-      // ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: ColorManager.red, width: AppSize.s1_5),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s24)),
+      ),
       errorBorder: OutlineInputBorder(
-        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s24)),
         borderSide: BorderSide(color: ColorManager.red, width: AppSize.s1_5),
       ),
     ),

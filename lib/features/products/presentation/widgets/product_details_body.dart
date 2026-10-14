@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tradly/features/products/domain/entity/product.dart';
@@ -6,6 +8,7 @@ import 'package:tradly/features/cart/presentation/provider/cart_provider.dart';
 import 'package:tradly/features/wishlist/presentation/provider/wishlist_provider.dart';
 import 'package:tradly/presentation/resourcses/assets_manager.dart';
 import 'package:tradly/presentation/resourcses/colors_manager.dart';
+import 'package:tradly/presentation/resourcses/strings_manager.dart';
 import 'package:tradly/presentation/resourcses/values_manager.dart';
 
 class ProductDetailsBody extends ConsumerWidget {
@@ -23,6 +26,9 @@ class ProductDetailsBody extends ConsumerWidget {
       extendBodyBehindAppBar: true,
       backgroundColor: ColorManager.white,
       appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.dark,
+        ),
         elevation: 0,
         iconTheme: IconThemeData(color: ColorManager.primary),
         backgroundColor: Colors.transparent,
@@ -46,9 +52,7 @@ class ProductDetailsBody extends ConsumerWidget {
           ),
         ],
       ),
-
       body: Container(
-        constraints: BoxConstraints.expand(),
         color: ColorManager.white,
         child: Column(
           children: [
@@ -70,7 +74,7 @@ class ProductDetailsBody extends ConsumerWidget {
                       ref.read(cartProvider.notifier).addToCart(product);
                     },
                     child: Text(
-                      "Add to Cart",
+                      AppStrings.addToCart.tr(),
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -83,14 +87,14 @@ class ProductDetailsBody extends ConsumerWidget {
     );
   }
 
-  Widget _getItems(Product? productDetails, BuildContext context) {
-    if (productDetails != null) {
+  Widget _getItems(Product? product, BuildContext context) {
+    if (product != null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
             child: Image.network(
-              productDetails.thumbnail,
+              product.thumbnail,
               fit: BoxFit.contain,
               width: double.infinity,
               height: (MediaQuery.sizeOf(context).height * 0.3)
@@ -99,31 +103,33 @@ class ProductDetailsBody extends ConsumerWidget {
             ),
           ),
           ListTile(
-            title: Text(productDetails.title),
+            title: Text(product.title),
             subtitle: Row(
               children: [
-                Text((productDetails.price * 0.5).toString()),
-                SizedBox(width: 18),
-                Text("\$ ${productDetails.price} 50% off "),
+                Text((product.price * 0.5).toString()),
+                SizedBox(width: 20),
+                Text("\$ ${product.price}\t 50% off "),
               ],
             ),
           ),
-          Container(height: 4, color: const Color.fromARGB(255, 138, 176, 196)),
+          Container(height: 4, color: const Color.fromARGB(255, 200, 236, 255)),
           Container(
             height: 50,
             alignment: AlignmentGeometry.center,
             child: ListTile(
               leading: SvgPicture.asset(ImageAssets.tAvatar),
-              title: Text(productDetails.title),
-              trailing: TextButton(onPressed: () {}, child: Text("follow")),
+              title: Text(product.category.toUpperCase()),
+              trailing: TextButton(
+                onPressed: () {},
+                child: Text(AppStrings.follow.tr()),
+              ),
             ),
           ),
-          Container(height: 4, color: const Color.fromARGB(255, 138, 176, 196)),
-
-          _getSection("About"),
-          _getInfoText(productDetails.description, context),
-          _getSection("Details"),
-          _getInfoText(productDetails.description, context),
+          Container(height: 4, color: const Color.fromARGB(255, 200, 236, 255)),
+          _getSection(AppStrings.about.tr()),
+          _getInfoText(product.description, context),
+          _getSection(AppStrings.details.tr()),
+          _getInfoText(product.description, context),
         ],
       );
     }
@@ -145,7 +151,10 @@ class ProductDetailsBody extends ConsumerWidget {
   Widget _getInfoText(String info, BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(AppPadding.p12),
-      child: Text(info, style: Theme.of(context).textTheme.bodySmall),
+      child: Text(
+        "$info $info $info",
+        style: Theme.of(context).textTheme.bodySmall,
+      ),
     );
   }
 }

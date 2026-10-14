@@ -1,15 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:tradly/features/cart/presentation/screen/cart_screen.dart';
-import 'package:tradly/features/products/presentation/screen/products_screen.dart';
-import 'package:tradly/features/wishlist/presentation/screen/wishlist_screen.dart';
+import 'package:tradly/features/browse/presentation/screens/browse_page.dart';
+import 'package:tradly/features/products/presentation/screen/home_screen.dart';
+import 'package:tradly/presentation/resourcses/routes_manager.dart';
 import '../resourcses/colors_manager.dart';
 import '../resourcses/strings_manager.dart';
 import '../resourcses/values_manager.dart';
-import 'pages/browse/view/browse_page.dart';
-import 'pages/order_history/view/order_history.dart';
+import 'pages/order_history/order_history.dart';
 import 'pages/profile/profile_page.dart';
-import 'pages/store/view/store_page.dart';
+import 'pages/store/store_page.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -23,17 +22,17 @@ class _MainViewState extends State<MainView> {
     const HomeScreen(),
     const BrowsePage(),
     const StorePage(),
-    const OrderHistory(),
+    const OrderHistoryPage(),
     const ProfilePage(),
   ];
   List<String> titles = [
-    AppStrings.groceries.tr(),
+    AppStrings.tradly.tr(),
     AppStrings.browse.tr(),
     AppStrings.store.tr(),
     AppStrings.orderHistory.tr(),
     AppStrings.profile.tr(),
   ];
-  var _title = AppStrings.groceries.tr();
+  var _title = AppStrings.tradly.tr();
   int _currentIndex = 0;
 
   @override
@@ -45,28 +44,21 @@ class _MainViewState extends State<MainView> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(
-                context,
-              ).push(MaterialPageRoute(builder: (context) => WishListView()));
+              Navigator.of(context).pushNamed(Routes.wishListScreen);
             },
             icon: const Icon(Icons.favorite),
             color: ColorManager.white,
           ),
           IconButton(
             onPressed: () {
-              Navigator.of(
-                context,
-              ).push(MaterialPageRoute(builder: (context) => CartView()));
+              Navigator.of(context).pushNamed(Routes.checkOutScreen);
             },
             icon: const Icon(Icons.shopping_cart),
             color: ColorManager.white,
           ),
         ],
       ),
-      // ====================
-      body: pages[_currentIndex],
-      // IndexedStack(index: _currentIndex, children: pages),
-      // ====================
+      body: IndexedStack(index: _currentIndex, children: pages),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [

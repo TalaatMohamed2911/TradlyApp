@@ -56,7 +56,7 @@ class LoginViewModel extends BaseViewModel
   @override
   setPassoword(String password) {
     passwordInput.add(password);
-    if (_isPasswordValid(password)) {
+    if (isPasswordValid(password)) {
       loginObject = loginObject.copyWith(password: password);
     } else {
       loginObject = loginObject.copyWith(password: "");
@@ -64,18 +64,15 @@ class LoginViewModel extends BaseViewModel
     inputAreAllInputsValid.add(null);
   }
 
-  bool _isPasswordValid(String password) {
-    return password.length >= 6;
-  }
-
   @override
   login() async {
     // inputState.add(
     //   LoadingState(stateRendererType: StateRendererType.popupLoadingState),
     // );
-    (await _loginUsecase.execute(
+    final response = await _loginUsecase.execute(
       LoginUsecaseInput(loginObject.email, loginObject.password),
-    )).fold(
+    );
+    response.fold(
       (failure) {
         //   return inputState.add(
         //   ErrorState(
@@ -97,7 +94,7 @@ class LoginViewModel extends BaseViewModel
 
   @override
   Stream<bool> get outputIsPasswordValid => _passwordStreamController.stream
-      .map((password) => _isPasswordValid(password));
+      .map((password) => isPasswordValid(password));
 
   @override
   Stream<bool> get outputAreAllInputsValid => _areAllInputsValidStreamController
@@ -106,7 +103,7 @@ class LoginViewModel extends BaseViewModel
 
   bool _areAllInputsValid() {
     return isEmailValidChecker(loginObject.email) &&
-        _isPasswordValid(loginObject.password);
+        isPasswordValid(loginObject.password);
   }
 }
 

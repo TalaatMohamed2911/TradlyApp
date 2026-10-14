@@ -21,7 +21,6 @@ class SearchQueryNotifier extends Notifier<String> {
   }
 }
 
-// final searchQueryProvider = StateProvider.autoDispose<String>((ref) => '');
 final searchQueryProvider = NotifierProvider<SearchQueryNotifier, String>(
   SearchQueryNotifier.new,
 );

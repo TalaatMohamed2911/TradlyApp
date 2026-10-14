@@ -11,22 +11,20 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final homeState = ref.watch(productsProvider);
 
-    return Scaffold(
-      body: homeState.when(
-        loading: () {
-          return const Center(child: CircularProgressIndicator());
-        },
+    return homeState.when(
+      loading: () {
+        return const Center(child: CircularProgressIndicator());
+      },
 
-        error: (error, stackTrace) {
-          return Center(
-            child: Text(error is Failure ? error.message : error.toString()),
-          );
-        },
+      error: (error, stackTrace) {
+        return Center(
+          child: Text(error is Failure ? error.message : error.toString()),
+        );
+      },
 
-        data: (homeData) {
-          return HomeContent(homeData: homeData);
-        },
-      ),
+      data: (homeData) {
+        return HomeContent(homeData: homeData);
+      },
     );
   }
 }

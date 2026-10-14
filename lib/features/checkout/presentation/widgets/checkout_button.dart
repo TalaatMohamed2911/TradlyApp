@@ -1,40 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tradly/features/cart/presentation/provider/cart_provider.dart';
+import 'package:tradly/features/checkout/presentation/provider/stripe_payment_provider.dart';
+import 'package:tradly/features/checkout/stripe_payment/payment_manager.dart';
+import 'package:tradly/presentation/resourcses/routes_manager.dart';
 
-class CheckoutButton extends StatelessWidget {
+class CheckoutButton extends ConsumerWidget {
   const CheckoutButton({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final paymentStatus = ref.watch(stripePaymentProvider);
     return Container(
       color: Colors.white,
-
       padding: const EdgeInsets.fromLTRB(36, 10, 36, 18),
-
       child: SizedBox(
         width: double.infinity,
         height: 38,
-
         child: ElevatedButton(
-          onPressed: () {
-            // Checkout
-          },
-
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xffA9D8CF),
-
-            foregroundColor: Colors.white,
-
-            elevation: 0,
-
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25),
-            ),
-          ),
-
-          child: const Text(
-            'Checkout',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-          ),
+          onPressed: paymentStatus == PaymentStatus.loading
+              ? null
+              : () async {
+                  await ref
+                      .read(stripePaymentProvider.notifier)
+                      .pay(
+                        ref.read(cartProvider.notifier).totalPrice.toInt(),
+                        "EGP",
+                      );
+                  ref.read(cartProvider.notifier).clearCart();
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    Routes.homeScreen,
+                    (route) => false,
+                  );
+                },
+          style: ElevatedButton.styleFrom(foregroundColor: Colors.white),
+          child: paymentStatus == PaymentStatus.loading
+              ? CircularProgressIndicator()
+              : const Text(
+                  'Pay now',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                ),
         ),
       ),
     );

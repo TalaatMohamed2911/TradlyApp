@@ -17,8 +17,6 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   Future<Either<Failure, Authentication>> login(
     LoginRequest loginRequest,
   ) async {
-    // Let Dio make the request instead of relying on a connectivity probe.
-    // The probe can report no connection while the API is still reachable.
     try {
       final response = await _authenticationDataSource.login(loginRequest);
       if (response.status == ApiInternalStatus.success) {
@@ -61,7 +59,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
         );
       }
     } catch (error) {
-      return left(ErrorHandler.handle(error).failure); // اهم line //
+      return left(ErrorHandler.handle(error).failure);
     }
   }
 
@@ -86,7 +84,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
         );
       }
     } catch (error) {
-      return left(ErrorHandler.handle(error).failure); // اهم line //
+      return left(ErrorHandler.handle(error).failure);
     }
   }
 }
